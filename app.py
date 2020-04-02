@@ -1,37 +1,63 @@
 import dash
 import dash_core_components as dcc
-import dash_html_components as html
-import pandas as pd 
-import   plotly.offline   as pyo 
+import dash_html_components as html    
+from dash.dependencies import Input,Output
+import pandas as pd
+import plotly.offline   as pyo 
 import plotly.graph_objs as go 
 
-df = pd.read_csv('OldFaithful.csv') 
-#scatter plot:
-data = [go.Scatter(x = df.X,
-                   y = df.Y,
-                   mode = 'markers',
-                   marker=dict(
-                           size=7,
-                           color="rgb(17,77,117)",
-                           symbol="pentagon",
-                           line=dict(width=2) #çevre çizgileri
-                           ))]  
-                            
-layout = go.Layout(title="Old Faithful",
-                   xaxis=dict(title="Duration of Eruption"),
-                   yaxis=dict(title="Next eruption"),
-                   hovermode="x")
+
+data = pd.read_csv("mpg.csv")
+
+# items: Dropdown-1
+items_1 = []
+for item_1 in data.columns:
+    items_1.append({"label":item_1,"value":item_1})
+
+# items: Dropdownv-2
+items_2 = []
+for item_2 in data.columns:
+    items_2.append({"label":item_2,"value":item_2})
+
+dropdown_1 = dcc.Dropdown(id="my-drop-1",options=items_1,value=item_1)
+dropdown_2 = dcc.Dropdown(id="my-drop-2",options=items_2,value=item_2)
 
 # dashboard:
-
 app = dash.Dash(__name__)
 server = app.server
-colors = dict(background="#777777",text="#7FDBFF")
-app.layout = html.Div(children=[
-                                dcc.Graph(id="test_1",
-                                          figure=dict(data=data,layout=layout))],
-                                # "for big-div" / "for children"
-                                style=dict(backgroundColor=colors["background"]))
+
+app.layout = html.Div([ #input-1:
+                       html.Div([dropdown_1],style=dict(width="48%",display="inline-block")),
+                       #input-2:
+                       html.Div([dropdown_2],style=dict(width="48%",float="right",display="inline-block")),
+                       #graph:
+                       dcc.Graph(id="my-graph")],style=dict(padding=10))# output
+
+@app.callback(Output(component_id="my-graph", component_property="figure"),
+              [Input(component_id="my-drop-1", component_property="value"),
+               Input(component_id="my-drop-2", component_property="value")])
+# 1 1 e, 2 2 ye
+def update_graph(selected_column_1,selected_column_2):
+    
+    trace = [go.Scatter( x = data[selected_column_1],
+                         y = data[selected_column_2],
+                         text = data["name"],
+                         mode = 'markers',
+                         marker=dict(
+                                    size=10,
+                                    color="rgb(17,77,117)",
+                                    opacity=0.5,
+                                    symbol="pentagon",
+                                    line=dict(width=2) #çevre çizgileri
+                                    ))]
+    
+    layout = go.Layout(title="my Dashboard for MPG",
+                   xaxis=dict(title=selected_column_1),
+                   yaxis=dict(title=selected_column_2),
+                   #margin=dict(l=40,b=40,t=10,r=0),#'l':   40,   'b':   40,   't':   10,   'r':   0}, 
+                   hovermode="closest")                                     
+        
+    return dict(data=trace,layout=layout)
 
 if __name__ == "__main__":
     app.run_server()
