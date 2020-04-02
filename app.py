@@ -6,7 +6,6 @@ import pandas as pd
 import plotly.offline   as pyo 
 import plotly.graph_objs as go 
 
-
 data = pd.read_csv("mpg.csv")
 
 # items: Dropdown-1
@@ -27,9 +26,12 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.layout = html.Div([ #input-1:
-                       html.Div([dropdown_1],style=dict(width="48%",display="inline-block")),
+                       html.H1('Mileage Per Gallon Performances of Various Cars',style=dict(fontSize=57,textAlign="center",color="blue")),
+                       html.Div([html.H3('Select a Feature:',style=dict(fontSize=27,paddingRight="30px")),
+                           dropdown_1],style=dict(width="48%",display="inline-block",paddingUp="30px")),
                        #input-2:
-                       html.Div([dropdown_2],style=dict(width="48%",float="right",display="inline-block")),
+                       html.Div([html.H3('Select a Feature:',style=dict(fontSize=27,paddingRight="30px")),
+                           dropdown_2],style=dict(width="48%",float="right",display="inline-block",paddingUp="30px")),
                        #graph:
                        dcc.Graph(id="my-graph")],style=dict(padding=10))# output
 
@@ -45,13 +47,13 @@ def update_graph(selected_column_1,selected_column_2):
                          mode = 'markers',
                          marker=dict(
                                     size=10,
-                                    color="rgb(17,77,117)",
+                                    color="blue",
                                     opacity=0.5,
-                                    symbol="pentagon",
+                                    symbol="circle",
                                     line=dict(width=2) #çevre çizgileri
                                     ))]
     
-    layout = go.Layout(title="my Dashboard for MPG",
+    layout = go.Layout(title="My Dashboard for MPG",
                    xaxis=dict(title=selected_column_1),
                    yaxis=dict(title=selected_column_2),
                    #margin=dict(l=40,b=40,t=10,r=0),#'l':   40,   'b':   40,   't':   10,   'r':   0}, 
