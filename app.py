@@ -72,7 +72,7 @@ data_org_test_4 = data_test_4[data_test_4.type == "organic"]
 
 hist_data = [data_con_test_4.AveragePrice,data_org_test_4.AveragePrice]
 group_labels = ["Con Average Price","Org Average Price"]
-
+fig_test_4 = ff.create_distplot(hist_data,group_labels)
 layout_test_4 = go.Layout(title="Average Price",
                           plot_bgcolor="#F5FFFA",
                           paper_bgcolor="#F5FFFA",
@@ -127,7 +127,7 @@ app.layout = html.Div([
         html.H1('Distribution Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
         html.H3("Compare Avocado Prices",style=dict(textAlign="left",color="#A9A9A9")),
         dcc.Graph(id="test_4",style=dict(paddingBottom="30px"),
-             figure=(ff.create_distplot(hist_data,group_labels))),
+             figure=dict(data=fig_test_4)),
         html.Hr(style=dict(color="white"))
         ],style=dict(paddingTop="50px"))],style=dict(backgroundColor="#404040",padding=100))
 
