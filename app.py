@@ -24,6 +24,24 @@ for item_2 in data.columns:
 dropdown_1 = dcc.Dropdown(id="my-drop-1",options=items_1,value=item_1)
 dropdown_2 = dcc.Dropdown(id="my-drop-2",options=items_2,value=item_2)
 
+#test_2
+data_test_2 = [go.Scatter(x=data["horsepower"], y=data["mpg"],
+                   text=data["name"],
+                   mode="markers",
+                   marker=dict(size=2*data["cylinders"],
+                               color=data["cylinders"],
+                               showscale=True)# yandaki renk barı
+                   )]
+ 
+layout_test_2 = go.Layout(title="Horse Power & MPG & Clinders",
+                          plot_bgcolor="#F5FFFA",
+                          paper_bgcolor="#F5FFFA",
+                          font=dict(color="black"),    
+                          xaxis=dict(title="Horse Power"),
+                          yaxis=dict(title="MPG"),
+                          hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
+#
+
 
 #
 # dashboard:
@@ -47,8 +65,13 @@ app.layout = html.Div([
         dropdown_2],style=dict(width="48%",float="right",display="inline-block",paddingBottom="20px")),
     #graphs:
     dcc.Graph(id="my-graph",style=dict(paddingBottom="30px")),
-    html.Hr(style=dict(color="white"))
-    
+    html.Hr(style=dict(color="white")),
+    html.Div([
+        html.H1('Bubble Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
+        dcc.Graph(id="test_2",style=dict(paddingBottom="30px"),
+             figure=dict(data=data_test_2,layout=layout_test_2)),
+        html.Hr(style=dict(color="white"))
+        ],style=dict(paddingTop="50px"))    
 
     ],style=dict(backgroundColor="#404040",padding=100))# output
 
