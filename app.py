@@ -127,7 +127,7 @@ app.layout = html.Div([
         html.H1('Distribution Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
         html.H3("Compare Avocado Prices",style=dict(textAlign="left",color="#A9A9A9")),
         dcc.Graph(id="test_4",style=dict(paddingBottom="30px"),
-             figure=dict(data=fig_test_4)),
+             figure=fig_test_4),
         html.Hr(style=dict(color="white"))
         ],style=dict(paddingTop="50px"))],style=dict(backgroundColor="#404040",padding=100))
 
