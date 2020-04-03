@@ -11,17 +11,6 @@ import plotly.figure_factory as ff # dist bunun içinde
 # .\venv\Scripts\activate
 data = pd.read_csv("mpg.csv")
 
-def generate_table(dataframe, max_rows=10):
-    return html.Table([
-        html.Thead(
-            html.Tr([html.Th(col) for col in dataframe.columns])
-        ),
-        html.Tbody([
-            html.Tr([
-                html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-            ]) for i in range(min(len(dataframe), max_rows))
-        ])
-    ])
 # items: Dropdown-1
 items_1 = []
 for item_1 in data.columns:
