@@ -52,7 +52,15 @@ layout_test_3 = go.Layout(title="Box Plots of Features",
                           paper_bgcolor="#F5FFFA",                          
                           hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
 #
+#test_5
+data_test_5 = [go.Histogram(x=data.mpg,
+                         xbins=dict(start=0,end=50))]
 
+layout_test_5 = go.Layout(title="MPG",
+                          plot_bgcolor="#F5FFFA",
+                          paper_bgcolor="#F5FFFA",
+                          font=dict(color="black"),    
+                          hovermode="closest")
 
 #
 # dashboard:
@@ -90,7 +98,15 @@ app.layout = html.Div([
         dcc.Graph(id="test_3",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_3,layout=layout_test_3)),
         html.Hr(style=dict(color="white"))
+        ],style=dict(paddingTop="50px")),
+    #test_5
+    html.Div([
+        html.H1('Histogram',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
+        dcc.Graph(id="test_5",style=dict(paddingBottom="30px"),
+             figure=dict(data=data_test_5,layout=layout_test_5)),
+        html.Hr(style=dict(color="white"))
         ],style=dict(paddingTop="50px"))
+
     
     ],style=dict(backgroundColor="#404040",padding=100))# output
 
