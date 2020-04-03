@@ -63,6 +63,22 @@ layout_test_5 = go.Layout(title="MPG",
                           hovermode="closest")
 
 #
+#test_4
+
+data_test_4 = pd.read_csv("avocado.csv")
+
+data_con_test_4 = data_test_4[data_test_4.type == "conventional"]
+data_org_test_4 = data_test_4[data_test_4.type == "organic"]
+
+hist_data = [data_con_test_4.AveragePrice,data_org_test_4.AveragePrice]
+group_labels = ["Con Average Price","Org Average Price"]
+
+layout_test_4 = go.Layout(title="Average Price",
+                          plot_bgcolor="#F5FFFA",
+                          paper_bgcolor="#F5FFFA",
+                          font=dict(color="black"),
+                          hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
+
 # dashboard:
 app = dash.Dash(__name__)
 server = app.server
@@ -105,10 +121,15 @@ app.layout = html.Div([
         dcc.Graph(id="test_5",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_5,layout=layout_test_5)),
         html.Hr(style=dict(color="white"))
-        ],style=dict(paddingTop="50px"))
-
-    
-    ],style=dict(backgroundColor="#404040",padding=100))# output
+        ],style=dict(paddingTop="50px")),
+    #test_4
+    html.Div([
+        html.H1('Distribution Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
+        html.H3("Compare Avocado Prices",style=dict(textAlign="left",color="#A9A9A9")),
+        dcc.Graph(id="test_4",style=dict(paddingBottom="30px"),
+             figure=ff.create_distplot(hist_data,group_labels)),
+        html.Hr(style=dict(color="white"))
+        ],style=dict(paddingTop="50px"))],style=dict(backgroundColor="#404040",padding=100))
 
 @app.callback(Output(component_id="my-graph", component_property="figure"),
               [Input(component_id="my-drop-1", component_property="value"),
