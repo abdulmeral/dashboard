@@ -32,13 +32,24 @@ data_test_2 = [go.Scatter(x=data["horsepower"], y=data["mpg"],
                                color=data["cylinders"],
                                showscale=True)# yandaki renk barı
                    )]
- 
 layout_test_2 = go.Layout(title="Horse Power & MPG & Clinders",
                           plot_bgcolor="#F5FFFA",
                           paper_bgcolor="#F5FFFA",
                           font=dict(color="black"),    
                           xaxis=dict(title="Horse Power"),
                           yaxis=dict(title="MPG"),
+                          hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
+#
+#test_3
+data_test_3 = [go.Box(y=data.mpg,name=data.columns[0]),
+                go.Box(y=data.displacement,name=data.columns[1]),
+                go.Box(y=data.horsepower,name=data.columns[2]),
+                go.Box(y=data.weight,name=data.columns[3]),
+                go.Box(y=data.acceleration,name=data.columns[4])]
+                
+layout_test_3 = go.Layout(title="Box Plots of Features",
+                          plot_bgcolor="#F5FFFA",
+                          paper_bgcolor="#F5FFFA",                          
                           hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
 #
 
@@ -66,13 +77,21 @@ app.layout = html.Div([
     #graphs:
     dcc.Graph(id="my-graph",style=dict(paddingBottom="30px")),
     html.Hr(style=dict(color="white")),
+    #test_2
     html.Div([
         html.H1('Bubble Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
         dcc.Graph(id="test_2",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_2,layout=layout_test_2)),
         html.Hr(style=dict(color="white"))
-        ],style=dict(paddingTop="50px"))    
-
+        ],style=dict(paddingTop="50px")),
+    #test_3
+    html.Div([
+        html.H1('Box Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
+        dcc.Graph(id="test_3",style=dict(paddingBottom="30px"),
+             figure=dict(data=data_test_3,layout=layout_test_3)),
+        html.Hr(style=dict(color="white"))
+        ],style=dict(paddingTop="50px"))
+    
     ],style=dict(backgroundColor="#404040",padding=100))# output
 
 @app.callback(Output(component_id="my-graph", component_property="figure"),
