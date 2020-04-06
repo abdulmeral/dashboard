@@ -3,7 +3,6 @@ import dash_core_components as dcc
 import dash_html_components as html    
 from dash.dependencies import Input,Output
 import pandas as pd
-import plotly.offline   as pyo 
 import plotly.graph_objs as go 
 import plotly.figure_factory as ff # dist bunun içinde
 
@@ -62,19 +61,7 @@ layout_test_5 = go.Layout(title="MPG",
                           font=dict(color="black"),    
                           hovermode="closest")
 
-#test_6
-# I choice Germany instead of Euro
-#country_number = pd.DataFrame(index=["USA","DEU","JPN"],columns=["number","country"])
-###country_number["country"] = ["United States","Germany","Japan"]
-##country_number["number"] = [249,79,70]
-
-#worldmap = [dict(type = 'choropleth', locations = country_number['country'], locationmode = 'country names',
-                 #z = country_number['number'], autocolorscale = True, reversescale = False, 
-                 #marker = dict(line = dict(color = 'rgb(180,180,180)', width = 0.5)), 
-                # colorbar = dict(autotick = False, title = 'Number of athletes'))]
-
-#layout_test_6 = dict(title = 'Distribution of Data', geo = dict(showframe = False, showcoastlines = True, 
-                                                               # projection = dict(type = 'Mercator')))
+#
 #test_4
 
 # =============================================================================
@@ -91,8 +78,8 @@ layout_test_5 = go.Layout(title="MPG",
 #                           paper_bgcolor="#F5FFFA",
 #                           font=dict(color="black"),
 #                           hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
+# 
 # =============================================================================
-
 # dashboard:
 app = dash.Dash(__name__)
 server = app.server
@@ -135,18 +122,18 @@ app.layout = html.Div([
         dcc.Graph(id="test_5",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_5,layout=layout_test_5)),
         html.Hr(style=dict(color="white"))
-        ],style=dict(paddingTop="50px"))
-    #test_6
-    #html.Div([
-        #html.H1('Worldmap',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
-        #dcc.Graph(id="test_6",style=dict(paddingBottom="30px"),
-            # figure=dict(data=worldmap,layout=layout_test_6)),
-       # html.Hr(style=dict(color="white"))
-       # ],style=dict(paddingTop="50px"))
-    
+        ],style=dict(paddingTop="50px")),
     #test_4 dict(data=ff.create_distplot(hist_data,group_labels))
-       # ],style=dict(backgroundColor="#404040",padding=100))
-
+# =============================================================================
+#     html.Div([
+#         html.H1('Distribution Plot',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
+#         html.H3("Compare Avocado Prices",style=dict(textAlign="left",color="#A9A9A9")),
+#         dcc.Graph(id="test_4",style=dict(paddingBottom="30px"),
+#              figure=fig_test_4),
+#         html.Hr(style=dict(color="white"))
+#         ],style=dict(paddingTop="50px"))],style=dict(backgroundColor="#404040",padding=100))
+# 
+# =============================================================================
 @app.callback(Output(component_id="my-graph", component_property="figure"),
               [Input(component_id="my-drop-1", component_property="value"),
                Input(component_id="my-drop-2", component_property="value")])
