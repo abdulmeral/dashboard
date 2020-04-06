@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr  7 01:41:02 2020
-
-@author: monster
-"""
-
 import dash
 import dash_core_components as dcc
 import dash_html_components as html    
@@ -69,37 +62,6 @@ layout_test_5 = go.Layout(title="MPG",
                           font=dict(color="black"),    
                           hovermode="closest")
 
-#test_6
-# I choice Germany instead of Euro
-#country_number = pd.DataFrame(index=["USA","DEU","JPN"],columns=["number","country"])
-###country_number["country"] = ["United States","Germany","Japan"]
-##country_number["number"] = [249,79,70]
-
-#worldmap = [dict(type = 'choropleth', locations = country_number['country'], locationmode = 'country names',
-                 #z = country_number['number'], autocolorscale = True, reversescale = False, 
-                 #marker = dict(line = dict(color = 'rgb(180,180,180)', width = 0.5)), 
-                # colorbar = dict(autotick = False, title = 'Number of athletes'))]
-
-#layout_test_6 = dict(title = 'Distribution of Data', geo = dict(showframe = False, showcoastlines = True, 
-                                                               # projection = dict(type = 'Mercator')))
-#test_4
-
-# =============================================================================
-# data_test_4 = pd.read_csv("avocado.csv")
-# 
-# data_con_test_4 = data_test_4[data_test_4.type == "conventional"]
-# data_org_test_4 = data_test_4[data_test_4.type == "organic"]
-# 
-# hist_data = [data_con_test_4.AveragePrice,data_org_test_4.AveragePrice]
-# group_labels = ["Con Average Price","Org Average Price"]
-# fig_test_4 = ff.create_distplot(hist_data,group_labels)
-# layout_test_4 = go.Layout(title="Average Price",
-#                           plot_bgcolor="#F5FFFA",
-#                           paper_bgcolor="#F5FFFA",
-#                           font=dict(color="black"),
-#                           hovermode="closest")#hovermode:üstüne gelince eksen bilgilerini görstriyor.
-# =============================================================================
-
 # dashboard:
 app = dash.Dash(__name__)
 server = app.server
@@ -142,17 +104,8 @@ app.layout = html.Div([
         dcc.Graph(id="test_5",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_5,layout=layout_test_5)),
         html.Hr(style=dict(color="white"))
-        ],style=dict(paddingTop="50px"))
-    #test_6
-    #html.Div([
-        #html.H1('Worldmap',style=dict(fontSize=50,textAlign="left",color="#A9A9A9")),
-        #dcc.Graph(id="test_6",style=dict(paddingBottom="30px"),
-            # figure=dict(data=worldmap,layout=layout_test_6)),
-       # html.Hr(style=dict(color="white"))
-       # ],style=dict(paddingTop="50px"))
+        ],style=dict(paddingTop="50px"))])
     
-    #test_4 dict(data=ff.create_distplot(hist_data,group_labels))
-       # ],style=dict(backgroundColor="#404040",padding=100))
 
 @app.callback(Output(component_id="my-graph", component_property="figure"),
               [Input(component_id="my-drop-1", component_property="value"),
