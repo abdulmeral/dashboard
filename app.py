@@ -104,7 +104,8 @@ app.layout = html.Div([
         dcc.Graph(id="test_5",style=dict(paddingBottom="30px"),
              figure=dict(data=data_test_5,layout=layout_test_5)),
         html.Hr(style=dict(color="white"))
-        ],style=dict(paddingTop="50px"))])
+        ],style=dict(paddingTop="50px"))
+    ],style=dict(backgroundColor="#404040",padding=100))
     
 
 @app.callback(Output(component_id="my-graph", component_property="figure"),
